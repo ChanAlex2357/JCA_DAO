@@ -11,43 +11,12 @@ import java.sql.SQLException;
 import jca.dao.exception.DriverException;
 
 public class ConnBuilder {
-    /**
-     * Le driver du sgbd a utiliser
-     */
-    private String driver;
-    public ConnBuilder(String driver){
-        setDriver(driver);
-    }
-/// GET AND SETS
-    public String getDriver() {
-        return driver;
-    }
-    public void setDriver(String driver) {
-        this.driver = driver;
-    }
-
 /// CONNEXION A LA BASE DE DONNEE
-    /**
-     * Etablie la connection avec la base de donnees selon le driver configurer et l'url de connction a utiliser
-     * @param url de connection a utiliser
-     * @return la connection etablie
-     * @throws DriverException Le driver de la base de donnee est introuvable ou incorrecte
-     * @throws SQLException La connection avec la base de donnee avec l'url n'a pas pu se faire
-     */
-    public Connection connect(String url) throws DriverException, SQLException{
-        return ConnBuilder.connect(getDriver(), url);
-    }
-    /**
-     * Etablie la connection avec la base de donnees selon le driver configurer et l'url de connction a utiliser
-     * @param url de connection a utiliser
-     * @param username
-     * @param password
-     * @return la connection etablie
-     * @throws DriverException Le driver de la base de donnee est introuvable ou incorrecte
-     * @throws SQLException La connection avec la base de donnee avec les configurations n'ont pas pues se faire
-     */
-    public Connection connect(String url,String username,String password) throws DriverException, SQLException{
-        return ConnBuilder.connect(getDriver(), url,username,password);
+    static public Connection connect(ConnConfig config,boolean authentification)throws DriverException,SQLException{
+        if(authentification){
+            return ConnBuilder.connect(config.getDriver(), config.getUrl(),config.getUsername(),config.getPassword());
+        }
+        return ConnBuilder.connect(config.getDriver(), config.getUrl());
     }
     /**
      * Etablie la connection avec une base de donnee selon le driver a utiliser et les configurations de connection url , username et password
