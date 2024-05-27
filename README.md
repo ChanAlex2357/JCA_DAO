@@ -1,18 +1,8 @@
-## Getting Started
+# JCA-DAO
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Projet de creation d'un template DAO pour faciliter la connection et la manipulation des requetes sgbd en JAVA
 
-## Folder Structure
+## Consignes
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+- Ce dao utilise l'avantage de JAVA-PROJECT de vscode avec la structure des dossiers , donc il faut mettre les librairies .jar de votre base de donnee dans le dossier lib du projet ou dossier equivalentes
+- Pour obtenir la version librairie jar du DAO il faut run le deployement.sh ( Linux ) sinon avec JAVA-PROJECT on peut exporter en .jar
