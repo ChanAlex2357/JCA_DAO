@@ -1,4 +1,4 @@
-package jca.dao.exception;
+package jca.dao.conn.exception;
 
 public class DriverException extends Exception{
     public DriverException(String driver , ClassNotFoundException driverErrors){

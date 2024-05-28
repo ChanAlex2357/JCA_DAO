@@ -1,4 +1,4 @@
-package jca.dao.exception;
+package jca.dao.models.exception;
 
 import jca.dao.models.annotations.EntityModels;
 

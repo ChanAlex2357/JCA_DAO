@@ -9,7 +9,7 @@ public class ConnConfig {
     private String  username;
     private String  password;
     private String  url;
-    
+    private int nbPagination;
     public ConnConfig(String driver, String database, String host, int port, String dbname, String username,
         String password) {
         setDriver(driver);
@@ -64,6 +64,15 @@ public class ConnConfig {
     public void setDatabase(String database) {
         this.database = database;
     }
+    public int getNbPagination() {
+        return nbPagination;
+    }
+    public void setNbPagination(int nbPagination) throws Exception {
+        if (nbPagination <= 0) {
+            throw new Exception("Le nombre de pagination doit etre positif");
+        }
+        this.nbPagination = nbPagination;
+    }
 
 // URL DE CONNECTION
     protected String urlPattern(){
@@ -75,4 +84,6 @@ public class ConnConfig {
     public String getUrl(){
         return this.url;
     }
+
+
 }

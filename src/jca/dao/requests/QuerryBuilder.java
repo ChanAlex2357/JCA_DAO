@@ -17,7 +17,7 @@ class QuerryBuilder {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    static public String getSelectQuerry(Object source, boolean criteria, String[] attribusNames, Object[][] limits){
+    static public String getSelectQuerry(Object source, boolean criteria, String[] attribusNames,int offset,int nbPagination,String database){
         EntityModels entiteClass = AnnotationExtractor.getEntityModels(source);
         String tabName = entiteClass.name();
         /// Select des colonnes
@@ -29,10 +29,7 @@ class QuerryBuilder {
         if (criteria) {
             conditions = ConditionBuilder.getSelectCondition(source);
         }
-        String limitString = "";
-        if ((attribusNames!=null) && (limits != null)) {
-            limitString = "";
-        }
+        String limitString = PaginationBuilder.getPagination(database, offset,nbPagination);
         return getSelectQuerry(collumns, tabName, conditions, limitString);
     }
     static private String getSelectQuerry(String collumns , String tabName , String conditions , String limits){
