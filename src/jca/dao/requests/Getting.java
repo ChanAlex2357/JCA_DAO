@@ -22,7 +22,7 @@ class Getting {
     static public List<Object> find(Object refObject , boolean criteria , String[] attribusNames,int offset,int nbPagination, Connection conn , String database) throws NotEntityException, SQLException{
         List<Object> results = null;
         Class<?> ref_class = refObject.getClass();
-        if ( AnnotationChecker.isEtityModels(ref_class)) {
+        if ( !AnnotationChecker.isEtityModels(ref_class)) {
             throw new NotEntityException(refObject);
         }
         PreparedStatement preparedStatement = null;

@@ -33,7 +33,7 @@ class QuerryBuilder {
         return getSelectQuerry(collumns, tabName, conditions, limitString);
     }
     static private String getSelectQuerry(String collumns , String tabName , String conditions , String limits){
-        return "select "+collumns+" from"+tabName+conditions+limits;
+        return "select "+collumns+" from "+tabName+" "+conditions+" "+limits;
     }
   
 }

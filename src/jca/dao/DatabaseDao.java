@@ -35,6 +35,9 @@ public class DatabaseDao {
         catch (Exception err) {
             err.printStackTrace();
         }
+        finally{
+            dbConn.close();
+        }
         return result;
     }
     public List<Object> findAll(Object entityObject ) throws Exception{
