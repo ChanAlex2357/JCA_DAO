@@ -68,7 +68,7 @@ public class ConnConfig {
         return nbPagination;
     }
     public void setNbPagination(int nbPagination) throws Exception {
-        if (nbPagination <= 0) {
+        if (nbPagination < 0) {
             throw new Exception("Le nombre de pagination doit etre positif");
         }
         this.nbPagination = nbPagination;
