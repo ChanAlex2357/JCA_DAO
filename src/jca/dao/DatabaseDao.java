@@ -25,16 +25,19 @@ public class DatabaseDao {
     public Connection getDatabaseConnection() throws DriverException, SQLException{
         return ConnBuilder.connect(getConnConfig());
     }
-    public List<Object> findAll(Object entityObject , boolean criteria , int offset , int nbPagination) throws Exception{
+    public List<Object> findAll(Object entityObject , int offset , int nbPagination) throws Exception{
         getConnConfig().setNbPagination(nbPagination);
         Connection dbConn = getDatabaseConnection();
         List<Object> result = null;
         try {
-            result = Requests.findAll(entityObject, criteria , offset , connConfig.getNbPagination(), dbConn , connConfig.getDatabase());
+            result = Requests.findAll(entityObject , offset , connConfig.getNbPagination(), dbConn , connConfig.getDatabase());
         }
         catch (Exception err) {
             err.printStackTrace();
         }
         return result;
+    }
+    public List<Object> findAll(Object entityObject ) throws Exception{
+        return findAll(entityObject, 0, 0);
     }
 }
