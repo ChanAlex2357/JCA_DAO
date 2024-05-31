@@ -1,4 +1,4 @@
-package jca.dao.requests;
+package jca.dao.requests.querry.builder;
 
 import java.lang.reflect.Field;
 
@@ -6,7 +6,7 @@ import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.Attribute;
 import jca.dao.models.reflections.AttributeExtractor;
 
-public class ConditionBuilder {
+class ConditionBuilder {
     /**
      * Creation de la condition de selection des donnees a partir 
      * des donnees d'attibute initialiser dans l'objet source 

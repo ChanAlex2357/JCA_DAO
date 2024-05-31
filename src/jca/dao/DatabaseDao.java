@@ -23,14 +23,22 @@ public class DatabaseDao {
        setConnConfig(connConfig);
     }
     public Connection getDatabaseConnection() throws DriverException, SQLException{
-        return ConnBuilder.connect(getConnConfig());
+        Connection conn = ConnBuilder.connect(getConnConfig());
+        conn.setAutoCommit(false);
+        return conn;
     }
-    public List<Object> findAll(Object entityObject , int offset , int nbPagination) throws Exception{
+    public List<Object> findAll(Object entityObject , boolean criteria,int offset , int nbPagination) throws Exception{
+        return find(entityObject, criteria, null, offset, nbPagination);
+    }
+    public List<Object> findAll(Object entityObject , boolean criteria ) throws Exception{
+        return findAll(entityObject, criteria, 0, 0);
+    }
+    public List<Object> find( Object entityObject , boolean criteria , String[] attributsName , int offset , int nbPagination) throws Exception{
         getConnConfig().setNbPagination(nbPagination);
         Connection dbConn = getDatabaseConnection();
         List<Object> result = null;
         try {
-            result = Requests.findAll(entityObject , offset , connConfig.getNbPagination(), dbConn , connConfig.getDatabase());
+            result = Requests.find(entityObject , criteria,attributsName ,offset , connConfig.getNbPagination(), dbConn , connConfig.getDatabase());
         }
         catch (Exception err) {
             err.printStackTrace();
@@ -40,7 +48,22 @@ public class DatabaseDao {
         }
         return result;
     }
-    public List<Object> findAll(Object entityObject ) throws Exception{
-        return findAll(entityObject, 0, 0);
+    /**
+     * Inserer un objet entite dans la base de donner en prenant compte des attributs de son annotation
+     * @param entite L'objet source
+     * @throws Exception 
+     */
+    public void insertEntite(Object entite) throws Exception{
+        Connection dbConn = getDatabaseConnection();
+        try {
+            Requests.insertEntite(entite, dbConn);
+            dbConn.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            dbConn.rollback();
+        }
+        finally{
+            dbConn.close();
+        }
     }
 }

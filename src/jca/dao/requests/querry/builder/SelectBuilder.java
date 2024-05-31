@@ -1,10 +1,10 @@
-package jca.dao.requests;
+package jca.dao.requests.querry.builder;
 
 import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.EntityModels;
 
-class QuerryBuilder {
-    /**
+class SelectBuilder {
+        /**
      * Genrer la requete sql pour faire de la selection , dans la table
      * specifier par l'annotation d'entite de l'objet source.
      * On peut egalement specifier si l'objet source contient des valeurs de condition
@@ -17,7 +17,7 @@ class QuerryBuilder {
      * @throws IllegalArgumentException
      * @throws IllegalAccessException
      */
-    static public String getSelectQuerry(Object source, boolean criteria, String[] attribusNames,int offset,int nbPagination,String database){
+    static String getSelectQuerry(Object source, boolean criteria, String[] attribusNames,int offset,int nbPagination,String database){
         EntityModels entiteClass = AnnotationExtractor.getEntityModels(source);
         String tabName = entiteClass.name();
         /// Select des colonnes

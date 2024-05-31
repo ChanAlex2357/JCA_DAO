@@ -1,11 +1,11 @@
-package jca.dao.requests;
+package jca.dao.requests.statement.builder;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import jca.dao.models.annotations.AnnotationChecker;
 import jca.dao.models.reflections.AttributeExtractor;
 
 public class StatementBuilder {
@@ -28,30 +28,20 @@ public class StatementBuilder {
         }
         return preparedStatement;
     }
-        /**
-     * Executer une requete sql donnee 
-     * @exemple insertion,select,
-     * @param sql
-     * @throws SQLException 
-     * @throws IllegalAccessException 
-     * @throws IllegalArgumentException 
-     */
-    static public ResultSet executePreparedStatement(PreparedStatement preparedStatement) throws SQLException{
-        ResultSet result = null;
-        try {
-           result = preparedStatement.executeQuery();
-        } catch (Exception e) {
-            throw e;
+    static public PreparedStatement getInsertStatement(Connection con , Object entite , String sqlInsert) throws SQLException, IllegalArgumentException, IllegalAccessException{
+        PreparedStatement preparedStatement = con.prepareStatement(sqlInsert);
+        /// Les attributs d'entite a inserer 
+        Field[] attributs = AttributeExtractor.getEntiteAttributs(entite);
+        /// Insertion des valeurs a inserer
+        int index = 1;
+        for (Field field : attributs) {
+            if (AnnotationChecker.isPrimaryKey(field)) {
+                continue;
+            }
+            preparedStatement.setObject(index, field.get(entite));
+            index += 1; 
         }
-        return result;
+        return preparedStatement;
     }
-    static public void updatePreparedStatement(PreparedStatement preparedStatement) throws SQLException{
-        try {
-            int result = preparedStatement.executeUpdate();
-            System.out.println(result+" ligne de resultats");
-        } catch (Exception e) {
-            throw e;
-        }
-    }
-
+    
 }

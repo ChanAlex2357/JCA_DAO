@@ -21,4 +21,12 @@ public class AnnotationChecker {
     static public boolean isForeignKey(Field field){
         return field.isAnnotationPresent(ForeignKey.class);
     }
+
+    static public boolean isAutoIncrement(Field field){
+        return field.isAnnotationPresent(AutoIncrement.class);
+    }
+
+    static public boolean isPrimaryKeyAutoIncremented(Field field){
+        return isPrimaryKey(field) && isPrimaryKeyAutoIncremented(field) ;
+    }
 }

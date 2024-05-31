@@ -1,6 +1,6 @@
-package jca.dao.requests;
+package jca.dao.requests.querry.builder;
 
-public class PaginationBuilder {
+class PaginationBuilder {
     static public String getPagination(String database,int offset,int nbPagination){
         String limit = "";
         if (nbPagination > 0 ) {

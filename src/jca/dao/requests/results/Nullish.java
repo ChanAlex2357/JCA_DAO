@@ -1,8 +1,8 @@
-package jca.dao.requests;
+package jca.dao.requests.results;
 
 import java.lang.reflect.Constructor;
 
-public class Nullish {
+class Nullish {
     static public final Class<?>[] classes = null;
     static public final Object[] parameters = null;
     static public Constructor<?> getDefaultConstructor(Object source) throws Exception{
