@@ -19,19 +19,22 @@ class ConditionBuilder {
         int  index = 0;
         for (Field field : attributs) {
             try {
+                field.setAccessible(true);
                 // Si l'attribut ne possede pas de valeur on ne le prend pas en compte
-                if (field.get(source) == null) {
-                    continue;
+                if (field.get(source) != null) {
+                    if (index > 0) {
+                        condition += " AND ";
+                    }
+                    condition += getAttributCondition(field);
+                    index += 1;
                 }
+                field.setAccessible(false);
             } catch (Exception e) {
                 // Exception si le field n'existe pas dans la source
                 // Non lever car les fields viennent de l'objet entrer en parametre
+                e.printStackTrace();
             }
-            if (index > 0) {
-                condition += " AND ";
-            }
-            condition += getAttributCondition(field);
-            index += 1;
+            
         }
         return condition;
     }  
