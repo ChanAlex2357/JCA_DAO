@@ -10,7 +10,6 @@ public class AnnotationChecker {
         return objClass.isAnnotationPresent(EntityModels.class);
     }
 
-
     static public boolean isAttribute(Field field){
         return field.isAnnotationPresent(Attribute.class);
     }

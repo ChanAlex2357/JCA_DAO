@@ -8,15 +8,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import jca.dao.exception.DriverException;
+import jca.dao.conn.exception.DriverException;
 
 public class ConnBuilder {
 /// CONNEXION A LA BASE DE DONNEE
-    static public Connection connect(ConnConfig config,boolean authentification)throws DriverException,SQLException{
+    static Connection connect(ConnConfig config,boolean authentification)throws DriverException,SQLException{
         if(authentification){
             return ConnBuilder.connect(config.getDriver(), config.getUrl(),config.getUsername(),config.getPassword());
         }
         return ConnBuilder.connect(config.getDriver(), config.getUrl());
+    }
+    static public Connection connect(ConnConfig config)throws DriverException,SQLException{
+        boolean authentification = true;
+        if ( config.getUsername() == null && config.getPassword() == null) {
+            authentification = false;
+        }
+        return connect(config, authentification);
     }
     /**
      * Etablie la connection avec une base de donnee selon le driver a utiliser et les configurations de connection url , username et password
@@ -28,7 +35,7 @@ public class ConnBuilder {
      * @throws DriverException Le driver de la base de donnee est introuvable ou incorrecte
      * @throws SQLException La connection avec la base de donnee avec l'url n'a pas pu se faire
      */
-    static public Connection connect( String driver,String url , String username , String password) throws DriverException, SQLException{
+    static Connection connect( String driver , String url , String username , String password) throws DriverException, SQLException{
         try {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(url, username, password);
@@ -47,7 +54,7 @@ public class ConnBuilder {
      * @throws DriverException Le driver de la base de donnee est introuvable ou incorrecte
      * @throws SQLException La connection avec la base de donnee avec l'url n'a pas pu se faire
      */
-    static public Connection connect( String driver,String url)throws DriverException, SQLException{
+    static Connection connect( String driver,String url)throws DriverException, SQLException{
         try {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(url);
