@@ -10,6 +10,7 @@ import java.util.List;
 
 import annotation.EntiteAttribut;
 import annotation.EntiteClass;
+import jca.dao.models.annotations.extractor.EntityExtractor;
 
 public class GenericDao {
     /**
@@ -189,7 +190,7 @@ public class GenericDao {
      */
     private String getInsertQuerry(Class<?> obj){
         EntiteClass entite_annotation = obj.getAnnotation(GenericDao.ENTITE_CLASS);
-        String tabName = entite_annotation.name();
+        String tabName = EntityExtractor.getEntityName(entite_annotation);
         /// Les Attribut qui representent les collones de l'entite
         Field[] attributs = getEntiteAttributs(obj);
         String sql_querry = "Insert into "+tabName;

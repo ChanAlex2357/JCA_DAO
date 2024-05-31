@@ -5,8 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import jca.dao.models.annotations.AnnotationChecker;
-import jca.dao.models.reflections.AttributeExtractor;
+import jca.dao.models.annotations.checker.AttributeChecker;
+import jca.dao.models.field.FieldExtractor;
 
 public class StatementBuilder {
     static public PreparedStatement getSelectStatement(Connection con , Object entite , String sqlInsert , boolean criteria) throws SQLException, IllegalArgumentException, IllegalAccessException{
@@ -15,7 +15,7 @@ public class StatementBuilder {
             return preparedStatement;
         }
         /// Les attributs d'entite a inserer 
-        Field[] attributs = AttributeExtractor.getEntiteAttributs(entite.getClass());
+        Field[] attributs = FieldExtractor.getEntiteAttributs(entite.getClass());
         /// Insertion des valeurs a inserer
         int index = 1;
         for (Field field : attributs) {
@@ -32,11 +32,11 @@ public class StatementBuilder {
     static public PreparedStatement getInsertStatement(Connection con , Object entite , String sqlInsert) throws SQLException, IllegalArgumentException, IllegalAccessException{
         PreparedStatement preparedStatement = con.prepareStatement(sqlInsert);
         /// Les attributs d'entite a inserer 
-        Field[] attributs = AttributeExtractor.getEntiteAttributs(entite);
+        Field[] attributs = FieldExtractor.getEntiteAttributs(entite);
         /// Insertion des valeurs a inserer
         int index = 1;
         for (Field field : attributs) {
-            if (AnnotationChecker.isPrimaryKeyAutoIncremented(field)) {
+            if (AttributeChecker.isPrimaryKeyAutoIncremented(field)) {
                 continue;
             }
             field.setAccessible(true);

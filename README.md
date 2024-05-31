@@ -33,3 +33,4 @@ Selon le SGBD utiliser il existe des configurations minimal si il est parmi la l
 ### Requests
 
 - **findAll** : Donner un objet qui implemente l'annotation d'une Table
+- **insertEntity** : Insertion de donner dans une table

@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import jca.dao.models.annotations.AnnotationChecker;
+import jca.dao.models.annotations.checker.EntityChecker;
 import jca.dao.models.exception.NotEntityException;
 import jca.dao.requests.querry.builder.QuerryBuilder;
 import jca.dao.requests.results.ResultParser;
@@ -24,7 +24,7 @@ class Getting {
      */
     static public List<Object> find(Object refObject , boolean criteria , String[] attribusNames,int offset,int nbPagination, Connection conn , String database) throws NotEntityException, SQLException{
         List<Object> results = null;
-        if ( !AnnotationChecker.isEtityModels(refObject)) {
+        if ( !EntityChecker.isEntityModels(refObject)) {
             throw new NotEntityException(refObject);
         }
         PreparedStatement preparedStatement = null;

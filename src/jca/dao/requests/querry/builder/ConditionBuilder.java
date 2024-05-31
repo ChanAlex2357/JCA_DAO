@@ -2,9 +2,9 @@ package jca.dao.requests.querry.builder;
 
 import java.lang.reflect.Field;
 
-import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.Attribute;
-import jca.dao.models.reflections.AttributeExtractor;
+import jca.dao.models.annotations.extractor.AttributeExtractor;
+import jca.dao.models.field.FieldExtractor;
 
 class ConditionBuilder {
     /**
@@ -15,7 +15,7 @@ class ConditionBuilder {
      */
     static public String getSelectCondition( Object source ) {
         String condition = " Where ";
-        Field[] attributs = AttributeExtractor.getEntiteAttributs(source);
+        Field[] attributs = FieldExtractor.getEntiteAttributs(source);
         int  index = 0;
         for (Field field : attributs) {
             try {
@@ -40,9 +40,8 @@ class ConditionBuilder {
     }  
     static public String getAttributCondition(Field field){
         String condition ="";
-        Attribute entiteAttribut = AnnotationExtractor.getAttibute(field);
         condition+="(";
-        condition+=entiteAttribut.name()+"=?";
+        condition+=AttributeExtractor.getAttributeName(field)+"=?";
         condition += ")";
         return condition;
     }

@@ -1,15 +1,13 @@
-package jca.dao.models.annotations;
+package jca.dao.models.annotations.checker;
 
 import java.lang.reflect.Field;
 
-public class AnnotationChecker {
-    static public boolean isEtityModels(Object obj){
-        return AnnotationChecker.isEtityModels(obj.getClass());
-    }
-    static public boolean isEtityModels(Class<?> objClass){
-        return objClass.isAnnotationPresent(EntityModels.class);
-    }
+import jca.dao.models.annotations.Attribute;
+import jca.dao.models.annotations.AutoIncrement;
+import jca.dao.models.annotations.ForeignKey;
+import jca.dao.models.annotations.PrimaryKey;
 
+public class AttributeChecker {
     static public boolean isAttribute(Field field){
         return field.isAnnotationPresent(Attribute.class);
     }

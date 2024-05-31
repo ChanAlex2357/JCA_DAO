@@ -2,11 +2,12 @@ package jca.dao.requests.querry.builder;
 
 import java.lang.reflect.Field;
 
-import jca.dao.models.annotations.AnnotationChecker;
-import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.Attribute;
 import jca.dao.models.annotations.EntityModels;
-import jca.dao.models.reflections.AttributeExtractor;
+import jca.dao.models.annotations.checker.AttributeChecker;
+import jca.dao.models.annotations.extractor.AttributeExtractor;
+import jca.dao.models.annotations.extractor.EntityExtractor;
+import jca.dao.models.field.FieldExtractor;
 
 class InsertBuilder {
     /**
@@ -19,10 +20,9 @@ class InsertBuilder {
         return getInsertQuerry(obj.getClass());
     }
     static private String getInsertQuerry(Class<?> obj){
-        EntityModels entite_annotation = AnnotationExtractor.getEntityModels(obj);
-        String tabName = entite_annotation.name();
+        String tabName = EntityExtractor.getEntityName(obj);
         /// Les Attribut qui representent les collones de l'entite
-        Field[] attributs = AttributeExtractor.getEntiteAttributs(obj);
+        Field[] attributs = FieldExtractor.getEntiteAttributs(obj);
         String sql_querry = "Insert into "+tabName;
         /// Generer la partie values (colonnes)
         sql_querry += getInsertCollumns(attributs);
@@ -42,11 +42,10 @@ class InsertBuilder {
             /// Traitement de chaque attribut 
             for (int i = 0; i < attributs.length; i++) {
                 /// Ajouter le nom de la colonne dans le resultat
-                if (AnnotationChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
+                if (AttributeChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
                     continue;
                 }
-                Attribute attr = AnnotationExtractor.getAttibute(attributs[i]);
-                result+= attr.name();
+                result+= AttributeExtractor.getAttributeName(attributs[i]);
                 /// Prend un prefixe ',' tant que c'est pas le dernier
                 if (i+1 < attributs.length) {
                     result+=',';
@@ -91,7 +90,7 @@ class InsertBuilder {
     static private String getPreparedStatementInput(Field attribut){
         String result = "?";
         /// Si elle en auto increment et un primary key on fait DEFAULT
-        if ( AnnotationChecker.isPrimaryKeyAutoIncremented(attribut) ) {
+        if ( AttributeChecker.isPrimaryKeyAutoIncremented(attribut) ) {
             return null;
         }
         return result;
