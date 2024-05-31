@@ -20,8 +20,7 @@ class InsertBuilder {
         return getInsertQuerry(obj.getClass());
     }
     static private String getInsertQuerry(Class<?> obj){
-        EntityModels entite_annotation = EntityExtractor.getEntityModels(obj);
-        String tabName = entite_annotation.name();
+        String tabName = EntityExtractor.getEntityName(obj);
         /// Les Attribut qui representent les collones de l'entite
         Field[] attributs = FieldExtractor.getEntiteAttributs(obj);
         String sql_querry = "Insert into "+tabName;
@@ -46,8 +45,7 @@ class InsertBuilder {
                 if (AttributeChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
                     continue;
                 }
-                Attribute attr = AttributeExtractor.getAttibute(attributs[i]);
-                result+= attr.name();
+                result+= AttributeExtractor.getAttributeName(attributs[i]);
                 /// Prend un prefixe ',' tant que c'est pas le dernier
                 if (i+1 < attributs.length) {
                     result+=',';

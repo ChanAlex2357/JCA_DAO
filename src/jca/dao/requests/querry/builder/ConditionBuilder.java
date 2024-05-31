@@ -40,9 +40,8 @@ class ConditionBuilder {
     }  
     static public String getAttributCondition(Field field){
         String condition ="";
-        Attribute entiteAttribut = AttributeExtractor.getAttibute(field);
         condition+="(";
-        condition+=entiteAttribut.name()+"=?";
+        condition+=AttributeExtractor.getAttributeName(field)+"=?";
         condition += ")";
         return condition;
     }

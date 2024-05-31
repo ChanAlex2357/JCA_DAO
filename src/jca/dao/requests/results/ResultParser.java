@@ -63,8 +63,7 @@ public class ResultParser {
     }
 
     static private void setAttributValue( Object entity ,Field field , ResultSet resultSet) throws IllegalArgumentException, IllegalAccessException, SQLException{
-        Attribute attributeAnnotation = AttributeExtractor.getAttibute(field);
-        Object value = resultSet.getObject( attributeAnnotation.name());
+        Object value = resultSet.getObject( AttributeExtractor.getAttributeName(field));
         if (value != null) {
             field.setAccessible(true);
             if (value instanceof Date date) {

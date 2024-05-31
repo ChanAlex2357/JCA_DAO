@@ -18,8 +18,7 @@ class SelectBuilder {
      * @throws IllegalAccessException
      */
     static String getSelectQuerry(Object source, boolean criteria, String[] attribusNames,int offset,int nbPagination,String database){
-        EntityModels entiteClass = EntityExtractor.getEntityModels(source);
-        String tabName = entiteClass.name();
+        String tabName = EntityExtractor.getEntityName(source);
         /// Select des colonnes
         String collumns = "*";
         if (attribusNames != null) {
