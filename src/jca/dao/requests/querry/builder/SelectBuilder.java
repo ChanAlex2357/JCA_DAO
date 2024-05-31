@@ -1,7 +1,7 @@
 package jca.dao.requests.querry.builder;
 
 import jca.dao.models.annotations.EntityModels;
-import jca.dao.models.annotations.extractor.AnnotationExtractor;
+import jca.dao.models.annotations.extractor.EntityExtractor;
 
 class SelectBuilder {
         /**
@@ -18,7 +18,7 @@ class SelectBuilder {
      * @throws IllegalAccessException
      */
     static String getSelectQuerry(Object source, boolean criteria, String[] attribusNames,int offset,int nbPagination,String database){
-        EntityModels entiteClass = AnnotationExtractor.getEntityModels(source);
+        EntityModels entiteClass = EntityExtractor.getEntityModels(source);
         String tabName = entiteClass.name();
         /// Select des colonnes
         String collumns = "*";

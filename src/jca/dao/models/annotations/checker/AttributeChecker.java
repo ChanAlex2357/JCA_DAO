@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import jca.dao.models.annotations.Attribute;
 import jca.dao.models.annotations.AutoIncrement;
-import jca.dao.models.annotations.EntityModels;
 import jca.dao.models.annotations.ForeignKey;
 import jca.dao.models.annotations.PrimaryKey;
 

@@ -5,8 +5,9 @@ import java.lang.reflect.Field;
 import jca.dao.models.annotations.Attribute;
 import jca.dao.models.annotations.EntityModels;
 import jca.dao.models.annotations.checker.AttributeChecker;
-import jca.dao.models.annotations.extractor.AnnotationExtractor;
-import jca.dao.models.reflections.AttributeExtractor;
+import jca.dao.models.annotations.extractor.AttributeExtractor;
+import jca.dao.models.annotations.extractor.EntityExtractor;
+import jca.dao.models.field.FieldExtractor;
 
 class InsertBuilder {
     /**
@@ -19,10 +20,10 @@ class InsertBuilder {
         return getInsertQuerry(obj.getClass());
     }
     static private String getInsertQuerry(Class<?> obj){
-        EntityModels entite_annotation = AnnotationExtractor.getEntityModels(obj);
+        EntityModels entite_annotation = EntityExtractor.getEntityModels(obj);
         String tabName = entite_annotation.name();
         /// Les Attribut qui representent les collones de l'entite
-        Field[] attributs = AttributeExtractor.getEntiteAttributs(obj);
+        Field[] attributs = FieldExtractor.getEntiteAttributs(obj);
         String sql_querry = "Insert into "+tabName;
         /// Generer la partie values (colonnes)
         sql_querry += getInsertCollumns(attributs);
@@ -45,7 +46,7 @@ class InsertBuilder {
                 if (AttributeChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
                     continue;
                 }
-                Attribute attr = AnnotationExtractor.getAttibute(attributs[i]);
+                Attribute attr = AttributeExtractor.getAttibute(attributs[i]);
                 result+= attr.name();
                 /// Prend un prefixe ',' tant que c'est pas le dernier
                 if (i+1 < attributs.length) {

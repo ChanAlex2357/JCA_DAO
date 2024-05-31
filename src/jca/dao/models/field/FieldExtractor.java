@@ -1,4 +1,4 @@
-package jca.dao.models.reflections;
+package jca.dao.models.field;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.List;
 
 import jca.dao.models.annotations.checker.AttributeChecker;
 
-public class AttributeExtractor {
+public class FieldExtractor {
     /**
      * Recuperer la liste des attributs d'une objet qui sont
      * annoter <EntiteAttribut>

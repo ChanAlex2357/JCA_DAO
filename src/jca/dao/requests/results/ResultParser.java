@@ -14,8 +14,8 @@ import java.util.List;
 import org.postgresql.util.PGInterval;
 
 import jca.dao.models.annotations.Attribute;
-import jca.dao.models.annotations.extractor.AnnotationExtractor;
-import jca.dao.models.reflections.AttributeExtractor;
+import jca.dao.models.annotations.extractor.AttributeExtractor;
+import jca.dao.models.field.FieldExtractor;
 
 public class ResultParser {
     /**
@@ -35,7 +35,7 @@ public class ResultParser {
         Object result = null;
         Class<?> refClass =  ref.getClass();
         result = refClass.getDeclaredConstructor(Nullish.classes).newInstance(Nullish.parameters);
-        Field[] attributs = AttributeExtractor.getEntiteAttributs(refClass);
+        Field[] attributs = FieldExtractor.getEntiteAttributs(refClass);
         for (Field field : attributs) {
             setAttributValue(result, field, resultSet);
         }
@@ -63,7 +63,7 @@ public class ResultParser {
     }
 
     static private void setAttributValue( Object entity ,Field field , ResultSet resultSet) throws IllegalArgumentException, IllegalAccessException, SQLException{
-        Attribute attributeAnnotation = AnnotationExtractor.getAttibute(field);
+        Attribute attributeAnnotation = AttributeExtractor.getAttibute(field);
         Object value = resultSet.getObject( attributeAnnotation.name());
         if (value != null) {
             field.setAccessible(true);
