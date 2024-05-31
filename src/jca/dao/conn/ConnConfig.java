@@ -1,6 +1,7 @@
 package jca.dao.conn;
 
 public class ConnConfig {
+    final static public     String   LOCALHOST   = "localhost";
     private String  driver;
     private String  database;
     private String  host;

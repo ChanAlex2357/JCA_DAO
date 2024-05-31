@@ -1,7 +1,6 @@
 package jca.dao.conn;
 
 public class PostgresqlConnConfing extends ConnConfig{
-    final static public     String   LOCALHOST   = "localhost";
     final static public     int      PORT        = 5432;
     final static public    String    DRIVER      = "org.postgresql.Driver";
     final static public    String    DATABASE    = "postgresql";  
@@ -13,9 +12,25 @@ public class PostgresqlConnConfing extends ConnConfig{
         );
     }
     public PostgresqlConnConfing (String host,String dbname ,String username , String password){
-        super(  PostgresqlConnConfing.DRIVER , 
+        super(  PostgresqlConnConfing.DRIVER,
                 PostgresqlConnConfing.DATABASE,
                 host,
+                PostgresqlConnConfing.PORT,
+                dbname, username, password
+        );
+    }
+
+    public PostgresqlConnConfing (int port,String dbname ,String username , String password){
+        super(  PostgresqlConnConfing.DRIVER , 
+                PostgresqlConnConfing.DATABASE,
+                ConnConfig.LOCALHOST,
+                port,dbname, username, password
+        );
+    }
+    public PostgresqlConnConfing (String dbname ,String username , String password){
+        super(  PostgresqlConnConfing.DRIVER,
+                PostgresqlConnConfing.DATABASE,
+                ConnConfig.LOCALHOST,
                 PostgresqlConnConfing.PORT,
                 dbname, username, password
         );
