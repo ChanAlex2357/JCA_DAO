@@ -2,7 +2,6 @@ package jca.dao.requests.querry.builder;
 
 import java.lang.reflect.Field;
 
-import jca.dao.models.annotations.Attribute;
 import jca.dao.models.annotations.extractor.AttributeExtractor;
 import jca.dao.models.field.FieldExtractor;
 

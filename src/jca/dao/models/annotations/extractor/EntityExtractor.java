@@ -1,7 +1,5 @@
 package jca.dao.models.annotations.extractor;
 
-import java.lang.reflect.Field;
-
 import jca.dao.helpers.StringParser;
 
 import jca.dao.models.annotations.EntityModels;

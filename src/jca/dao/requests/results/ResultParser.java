@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.postgresql.util.PGInterval;
 
-import jca.dao.models.annotations.Attribute;
 import jca.dao.models.annotations.extractor.AttributeExtractor;
 import jca.dao.models.field.FieldExtractor;
 
