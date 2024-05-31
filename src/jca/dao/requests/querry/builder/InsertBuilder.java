@@ -2,10 +2,10 @@ package jca.dao.requests.querry.builder;
 
 import java.lang.reflect.Field;
 
-import jca.dao.models.annotations.AnnotationChecker;
-import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.Attribute;
 import jca.dao.models.annotations.EntityModels;
+import jca.dao.models.annotations.checker.AttributeChecker;
+import jca.dao.models.annotations.extractor.AnnotationExtractor;
 import jca.dao.models.reflections.AttributeExtractor;
 
 class InsertBuilder {
@@ -42,7 +42,7 @@ class InsertBuilder {
             /// Traitement de chaque attribut 
             for (int i = 0; i < attributs.length; i++) {
                 /// Ajouter le nom de la colonne dans le resultat
-                if (AnnotationChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
+                if (AttributeChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
                     continue;
                 }
                 Attribute attr = AnnotationExtractor.getAttibute(attributs[i]);
@@ -91,7 +91,7 @@ class InsertBuilder {
     static private String getPreparedStatementInput(Field attribut){
         String result = "?";
         /// Si elle en auto increment et un primary key on fait DEFAULT
-        if ( AnnotationChecker.isPrimaryKeyAutoIncremented(attribut) ) {
+        if ( AttributeChecker.isPrimaryKeyAutoIncremented(attribut) ) {
             return null;
         }
         return result;

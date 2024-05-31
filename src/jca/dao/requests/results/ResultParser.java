@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.postgresql.util.PGInterval;
-import jca.dao.models.annotations.AnnotationExtractor;
+
 import jca.dao.models.annotations.Attribute;
+import jca.dao.models.annotations.extractor.AnnotationExtractor;
 import jca.dao.models.reflections.AttributeExtractor;
 
 public class ResultParser {

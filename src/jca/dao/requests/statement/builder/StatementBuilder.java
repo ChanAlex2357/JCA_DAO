@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import jca.dao.models.annotations.AnnotationChecker;
+import jca.dao.models.annotations.checker.AttributeChecker;
 import jca.dao.models.reflections.AttributeExtractor;
 
 public class StatementBuilder {
@@ -36,7 +36,7 @@ public class StatementBuilder {
         /// Insertion des valeurs a inserer
         int index = 1;
         for (Field field : attributs) {
-            if (AnnotationChecker.isPrimaryKeyAutoIncremented(field)) {
+            if (AttributeChecker.isPrimaryKeyAutoIncremented(field)) {
                 continue;
             }
             field.setAccessible(true);

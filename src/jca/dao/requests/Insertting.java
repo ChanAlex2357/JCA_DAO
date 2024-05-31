@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import jca.dao.models.annotations.AnnotationChecker;
+import jca.dao.models.annotations.checker.EntityChecker;
 import jca.dao.models.exception.NotEntityException;
 import jca.dao.requests.querry.builder.QuerryBuilder;
 import jca.dao.requests.statement.builder.StatementBuilder;
@@ -21,7 +21,7 @@ public class Insertting {
      */
     static public void insertEntite(Object entite,Connection conn) throws NotEntityException, IllegalArgumentException, IllegalAccessException, SQLException{
         /// Tester si il possede l'annotation entite
-        if ( ! AnnotationChecker.isEtityModels(entite)) {
+        if ( ! EntityChecker.isEntityModels(entite)) {
             throw new NotEntityException(entite);
         }
         /// Generer la requete sql pour l'entite

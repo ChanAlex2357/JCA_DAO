@@ -1,6 +1,9 @@
-package jca.dao.models.annotations;
+package jca.dao.models.annotations.extractor;
 
 import java.lang.reflect.Field;
+
+import jca.dao.models.annotations.Attribute;
+import jca.dao.models.annotations.EntityModels;
 
 public class AnnotationExtractor {
     static public EntityModels getEntityModels(Object source){

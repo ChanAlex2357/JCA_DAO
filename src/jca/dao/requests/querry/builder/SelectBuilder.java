@@ -1,7 +1,7 @@
 package jca.dao.requests.querry.builder;
 
-import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.EntityModels;
+import jca.dao.models.annotations.extractor.AnnotationExtractor;
 
 class SelectBuilder {
         /**

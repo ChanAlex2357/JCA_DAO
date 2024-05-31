@@ -2,8 +2,8 @@ package jca.dao.requests.querry.builder;
 
 import java.lang.reflect.Field;
 
-import jca.dao.models.annotations.AnnotationExtractor;
 import jca.dao.models.annotations.Attribute;
+import jca.dao.models.annotations.extractor.AnnotationExtractor;
 import jca.dao.models.reflections.AttributeExtractor;
 
 class ConditionBuilder {
