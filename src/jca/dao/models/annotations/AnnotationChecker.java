@@ -27,6 +27,6 @@ public class AnnotationChecker {
     }
 
     static public boolean isPrimaryKeyAutoIncremented(Field field){
-        return isPrimaryKey(field) && isPrimaryKeyAutoIncremented(field) ;
+        return isPrimaryKey(field) && isAutoIncrement(field) ;
     }
 }

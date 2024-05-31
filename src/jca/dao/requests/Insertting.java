@@ -26,10 +26,14 @@ public class Insertting {
         }
         /// Generer la requete sql pour l'entite
         String sql = QuerryBuilder.getInsertQuerry(entite);
+        System.out.println(sql+"\n");
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = StatementBuilder.getInsertStatement(conn, entite, sql);
             StatementExecutor.updatePreparedStatement(preparedStatement);
+        }
+        catch ( Exception e){
+            e.printStackTrace();
         }
         finally{
             preparedStatement.close();

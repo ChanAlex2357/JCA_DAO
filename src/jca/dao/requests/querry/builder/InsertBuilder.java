@@ -41,8 +41,11 @@ class InsertBuilder {
             result+="(";
             /// Traitement de chaque attribut 
             for (int i = 0; i < attributs.length; i++) {
-                Attribute attr = AnnotationExtractor.getAttibute(attributs[i]);
                 /// Ajouter le nom de la colonne dans le resultat
+                if (AnnotationChecker.isPrimaryKeyAutoIncremented(attributs[i])) {
+                    continue;
+                }
+                Attribute attr = AnnotationExtractor.getAttibute(attributs[i]);
                 result+= attr.name();
                 /// Prend un prefixe ',' tant que c'est pas le dernier
                 if (i+1 < attributs.length) {
@@ -65,7 +68,11 @@ class InsertBuilder {
             /// Traitement de chaque attribut 
             for (int i = 0; i < attributs.length; i++) {
                 /// Ajouter le nom de la colonne dans le resultat
-                result+= getPreparedStatementInput(attributs[i]);
+                String input = getPreparedStatementInput(attributs[i]);
+                if (input == null) {
+                    continue;
+                } 
+                result+=input;
                 /// Prend un prefixe ',' tant que c'est pas le dernier
                 if (i+1 < attributs.length) {
                     result+=',';
@@ -85,7 +92,7 @@ class InsertBuilder {
         String result = "?";
         /// Si elle en auto increment et un primary key on fait DEFAULT
         if ( AnnotationChecker.isPrimaryKeyAutoIncremented(attribut) ) {
-            result = "DEFAULT";
+            return null;
         }
         return result;
     }

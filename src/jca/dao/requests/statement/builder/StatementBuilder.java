@@ -19,12 +19,13 @@ public class StatementBuilder {
         /// Insertion des valeurs a inserer
         int index = 1;
         for (Field field : attributs) {
+            field.setAccessible(true);
             Object value =  field.get(entite);
-            if (value == null) {
-                continue;
+            if (value != null) {
+                preparedStatement.setObject(index,value);
+                index += 1;
             }
-            preparedStatement.setObject(index,value);
-            index += 1; 
+            field.setAccessible(false);
         }
         return preparedStatement;
     }
@@ -35,10 +36,14 @@ public class StatementBuilder {
         /// Insertion des valeurs a inserer
         int index = 1;
         for (Field field : attributs) {
-            if (AnnotationChecker.isPrimaryKey(field)) {
+            if (AnnotationChecker.isPrimaryKeyAutoIncremented(field)) {
                 continue;
             }
-            preparedStatement.setObject(index, field.get(entite));
+            field.setAccessible(true);
+            Object value = field.get(entite);
+            System.out.println("value => "+value+"\n");
+            preparedStatement.setObject(index,value);
+            field.setAccessible(false);
             index += 1; 
         }
         return preparedStatement;

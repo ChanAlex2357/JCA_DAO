@@ -23,8 +23,11 @@ public class DatabaseDao {
        setConnConfig(connConfig);
     }
     public Connection getDatabaseConnection() throws DriverException, SQLException{
+        return getDatabaseConnection(false);
+    }
+    public Connection getDatabaseConnection( boolean autocommit) throws DriverException, SQLException{
         Connection conn = ConnBuilder.connect(getConnConfig());
-        conn.setAutoCommit(false);
+        conn.setAutoCommit(autocommit);
         return conn;
     }
     public List<Object> findAll(Object entityObject , boolean criteria,int offset , int nbPagination) throws Exception{
@@ -53,11 +56,13 @@ public class DatabaseDao {
      * @param entite L'objet source
      * @throws Exception 
      */
-    public void insertEntite(Object entite) throws Exception{
-        Connection dbConn = getDatabaseConnection();
+    public void insertEntite(Object entite , boolean commit) throws Exception{
+        Connection dbConn = getDatabaseConnection(false);
         try {
             Requests.insertEntite(entite, dbConn);
-            dbConn.commit();
+            if (commit) {
+                dbConn.commit();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             dbConn.rollback();
@@ -65,5 +70,8 @@ public class DatabaseDao {
         finally{
             dbConn.close();
         }
+    }
+    public void insertEntite(Object entite) throws Exception{
+        insertEntite(entite, true);
     }
 }
